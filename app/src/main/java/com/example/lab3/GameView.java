@@ -47,7 +47,7 @@ public class GameView extends View {
     }
 
     private void createView(){
-        maze = new MazePainter(2, 5);
+        maze = new MazePainter(6, 10);
 
         wallPaint = new Paint();
         wallPaint.setColor(Color.DKGRAY);
