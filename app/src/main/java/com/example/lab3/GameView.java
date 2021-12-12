@@ -28,12 +28,14 @@ public class GameView extends View {
     /**
      * Paints for different objects.
      */
-    private Paint wallPaint, playerPaint, exitPaint;
+    private Paint wallPaint;
+    private Paint playerPaint;
+    private Paint exitPaint;
 
-    MazePainter maze;
-    Button button;
-    PopupWindow popupWindow;
-    Canvas canvas;
+    private MazePainter maze;
+    private Button button;
+    private PopupWindow popupWindow;
+    private Canvas canvas;
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
