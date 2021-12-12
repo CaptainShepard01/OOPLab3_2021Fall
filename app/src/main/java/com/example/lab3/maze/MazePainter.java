@@ -49,6 +49,7 @@ public class MazePainter {
 
     /**
      * Calculate cell size depending on maze parameters.
+     *
      * @return Float (length and width of a cell).
      */
     private float calculateCellSize() {
@@ -114,6 +115,11 @@ public class MazePainter {
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeWidth(WALL_THICKNESS + 1);
 
+        Paint fontPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        fontPaint.setTextSize(60);
+        fontPaint.setStyle(Paint.Style.FILL);
+        fontPaint.setColor(Color.WHITE);
+
         canvas.drawRect(
                 exit.col * cellSize + margin,
                 exit.row * cellSize + margin,
@@ -126,11 +132,14 @@ public class MazePainter {
                 (exit.col + 1) * cellSize - margin,
                 (exit.row + 1) * cellSize - margin,
                 borderPaint);
+
+        canvas.drawText("Exit", (exit.col + 0.17f) * cellSize, (exit.row + 0.62f) * cellSize, fontPaint);
     }
 
     /**
      * Method implementing player movements through adding or subtracting 1 position
      * of its current position in corresponding direction.
+     *
      * @param direction
      */
     private void movePlayer(Direction direction) {
@@ -152,6 +161,7 @@ public class MazePainter {
 
     /**
      * Move player to the position checking walls.
+     *
      * @param x
      * @param y
      */
@@ -186,6 +196,7 @@ public class MazePainter {
 
     /**
      * Check if player is on exit cell.
+     *
      * @return
      */
     public boolean checkExit() {

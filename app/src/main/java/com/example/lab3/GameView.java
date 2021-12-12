@@ -3,7 +3,6 @@ package com.example.lab3;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,15 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.example.lab3.maze.MazePainter;
-import com.example.lab3.maze.model.Cell;
-import com.example.lab3.maze.model.Direction;
-
-import java.util.Random;
 
 /**
  * Class to generate new maze and paint walls, cells, player and exit.
@@ -60,7 +54,7 @@ public class GameView extends View {
         exitPaint.setColor(Color.DKGRAY);
     }
 
-    private void Redraw(){
+    private void redraw(){
         canvas.drawColor(Color.LTGRAY);
         maze.paint(canvas, wallPaint, playerPaint, exitPaint);
     }
@@ -68,7 +62,7 @@ public class GameView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         this.canvas = canvas;
-        Redraw();
+        redraw();
     }
 
     @Override
@@ -91,30 +85,25 @@ public class GameView extends View {
     public void createPopup(){
         LayoutInflater inflater = (LayoutInflater) getContext().
                 getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup, (ViewGroup) getRootView(), false);
-
-        //maze.changeCanvasAtFinish("3B393C");
+        View popupView = inflater.inflate(R.layout.end_game, (ViewGroup) getRootView(), false);
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true; // lets taps outside the popup also dismiss it
+        boolean focusable = true;
 
         popupWindow = new PopupWindow(popupView, width, height, false);
         popupWindow.showAtLocation((View) getParent(), Gravity.CENTER, 0, 0);
 
         button = popupView.findViewById(R.id.playAgain);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupView.setVisibility(GONE);
-                popupWindow.showAsDropDown(GameView.this);
-                popupWindow.dismiss();
-                invalidate();
-                createView();
-                popupWindow = null;
-                Redraw();
-            }
+        button.setOnClickListener(v -> {
+            popupView.setVisibility(GONE);
+            popupWindow.showAsDropDown(GameView.this);
+            popupWindow.dismiss();
+            invalidate();
+            createView();
+            popupWindow = null;
+            redraw();
         });
     }
 
